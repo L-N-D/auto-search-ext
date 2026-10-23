@@ -1,0 +1,13 @@
+# OS & System
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Local & Temporary files
+*.local
+*.env
+scratch/
+test_*.js
+*.tmp

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Quiz Solver Settings</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" />
+          </svg>
+        </div>
+        <div class="brand-info">
+          <h1>AI Quiz Solver</h1>
+          <span class="version-tag">Alt + R</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="content">
+      <!-- Shortcut Notice Banner -->
+      <div class="shortcut-banner">
+        <div class="banner-icon">⚡</div>
+        <div class="banner-text">
+          Bấm <kbd>Alt</kbd> + <kbd>R</kbd> bất kỳ lúc nào để chụp màn hình và nhận đáp án ngay lập tức.
+        </div>
+      </div>
+
+      <!-- Quick Action Button -->
+      <button id="btnTriggerCapture" class="btn-action-primary">
+        <span class="btn-icon">📸</span>
+        <span>Chụp màn hình & Giải ngay</span>
+      </button>
+
+      <!-- Settings Section -->
+      <section class="section">
+        <div class="section-header-row">
+          <h2 class="section-title">Cấu hình Gemini API Key</h2>
+          <span class="keys-counter-badge" id="keysBadge">1 Key</span>
+        </div>
+
+        <!-- Single / Multi-Key Textarea -->
+        <div class="form-group">
+          <label for="apiKeysArea">
+            <span>Danh sách API Key (Hỗ trợ 3 tài khoản)</span>
+            <button type="button" id="btnResetDefaultKeys" class="btn-text-link" title="Nạp key dự phòng">
+              ↺ Nạp key mẫu
+            </button>
+          </label>
+          <div class="textarea-wrapper">
+            <textarea id="apiKeysArea" rows="3" placeholder="Dán 3 API key của 3 tài khoản vào đây (mỗi dòng 1 key)..."
+              spellcheck="false" autocomplete="off"></textarea>
+          </div>
+          <p class="field-hint">TK 1 & TK 2 luân phiên giải đề (Round-Robin), TK 3 chuyên thẩm định độc lập & đối chiếu các phương án tương tự để chống bẫy câu chữ.</p>
+        </div>
+
+        <!-- System Prompt Accordion -->
+        <details class="prompt-accordion">
+          <summary class="prompt-accordion-title">
+            <span>⚙️ Bộ System Prompt chuyên sâu Lịch sử Đảng</span>
+          </summary>
+          <div class="prompt-accordion-body">
+            <div class="prompt-sub-header">
+              <span class="prompt-hint">Quy tắc hướng dẫn Agent suy luận Chain-of-Thought bẻ gãy bẫy trắc nghiệm</span>
+              <button type="button" id="btnResetSystemPrompt" class="btn-text-link">↺ Mặc định</button>
+            </div>
+            <textarea id="systemPromptArea" rows="7" spellcheck="false" autocomplete="off"></textarea>
+          </div>
+        </details>
+
+        <!-- Model Selection -->
+        <div class="form-group">
+          <label for="modelSelect">Mô hình AI (Model)</label>
+          <div class="select-wrapper">
+            <select id="modelSelect">
+              <option value="auto-rotate" selected>⚡ Tự động xoay vòng 2 Model Lite hạn mức cao (3.5 Lite ➔ Lite Latest)</option>
+              <option value="gemini-3.5-flash-lite">⚡ Gemini 3.5 Flash Lite (Siêu tốc ~0.9s - Hạn mức lớn 1.500 lượt/ngày)</option>
+              <option value="gemini-flash-lite-latest">🚀 Gemini Flash Lite Latest (Mới nhất ~1.1s - Quota dự phòng 1.500 lượt/ngày)</option>
+            </select>
+          </div>
+          <p class="field-hint">Đã loại bỏ hoàn toàn các model bị Google siết giới hạn 20 lượt/ngày. Bộ đôi Flash Lite cho phép bạn giải hàng nghìn câu mỗi ngày mà không bao giờ hết quota.</p>
+        </div>
+
+        <!-- Action Row -->
+        <div class="btn-row">
+          <button id="btnTestKey" class="btn-secondary">
+            <span id="testSpinner" class="spinner hidden"></span>
+            <span id="testBtnText">Kiểm tra kết nối</span>
+          </button>
+          <button id="btnSave" class="btn-save">
+            <span>Lưu cài đặt</span>
+          </button>
+        </div>
+
+        <!-- Feedback Alert -->
+        <div id="statusAlert" class="alert hidden"></div>
+      </section>
+
+      <!-- Shortcut Customization Note -->
+      <footer class="footer">
+        <p>Muốn đổi phím tắt? Truy cập <code id="linkShortcuts">chrome://extensions/shortcuts</code> trong tab mới.</p>
+      </footer>
+    </main>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>
